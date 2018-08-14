@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="./js/vue.js"></script>
+	<title>表单输入绑定</title>
+</head>
+<body>
+
+<!-- 1.基础用法 -->
+
+<!-- 文本 -->
+
+<form id="app1">
+	<input v-model="message" placeholder="edit me">
+	<p>Message is: {{ message }}</p>
+</form>
+
+<!-- 多行文本 -->
+<form id="app2">
+	<span>Multiline message is:</span>
+	<p style="white-space: pre-line;">{{message}}</p>
+	<br>
+	<textarea v-model="message" placeholder="add multiple lines"></textarea>
+</form>
+
+<!-- 复选框 -->
+
+<!-- 单个复选框 -->
+<div id="app3">
+	<input type="checkbox" v-model="checked">
+	<label for="checkbox">{{checked}}</label>
+</div>
+
+<br>
+
+<!-- 多个复选框 -->
+<div id="app4">
+	<input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+	<label for="jack">Jack</label>
+	<input type="checkbox" id="john" value="John" v-model="checkedNames">
+	<label for="john">John</label>
+	<input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+	<label for="mike">Mike</label>
+	<br>
+	<span>Checked names: {{checkedNames}}</span>
+</div>
+
+<br>
+
+<!-- 单选按钮 -->
+
+<div id="app5">
+	<input type="radio" id="one" value="One" v-model="picked">    <!-- 起关键作用的就是 v-model='picked' -->
+	<label for="one">One</label>
+	<input type="radio" id="two" value="Two" v-model="picked">
+	<label for="two">Two</label>
+	<br>
+	<span>You picked: {{picked}}</span>
+</div>
+
+<!-- 选择框 -->
+
+<br>
+
+<!-- 单选时 -->
+<div id="app6">
+	<select v-model="selected">
+		<option disabled="">请选择</option>
+		<option>A</option>
+		<option>B</option>
+		<option>C</option>
+	</select>
+	<span>You selected: {{selected}}</span>
+</div>
+
+<br>
+
+<!-- 多选时 -->
+<div id="app7">
+	<select v-model="selected" multiple style="width: 50px">
+		<option>A</option>
+		<option>B</option>
+		<option>C</option>
+	</select>
+	<br>
+	<span>You selected: {{selected}}</span>
+</div>
+
+<br>
+
+<!-- 用 v-for 渲染的动态选项 -->
+<div id="app8">
+	<select v-model="selected">
+		<option v-for="option in options" v-bind:value="option.value">{{option.text}}</option>
+	</select>
+	<span>You selected: {{selected}}</span>
+</div>
+
+<br>
+
+<!-- 2.值绑定 -->
+
+<!-- 复选框 -->
+<div id="app9">
+	<input type="checkbox" v-model="toggle" true-value="yes" false-value="no" id="check">
+	<label for="check">Selected ? {{toggle}}</label>
+</div>
+
+<!-- 单选按钮 -->
+
+<!-- 选择框的选项 -->
+
+<!-- 3.修饰符 -->
+
+<!-- 4.在组件上使用 v-model -->
+
+<script>
+	
+new Vue({
+	el: '#app1',
+	data: {message: ''}
+})
+
+new Vue({
+	el: '#app2',
+	data: {message: ''}
+})
+
+new Vue({
+	el: '#app3',
+	data: {checked: false}
+})
+
+new Vue({
+	el: '#app4',
+	data: {checkedNames: []}
+})
+
+new Vue({
+	el: '#app5',
+	data: {picked: ''}
+})
+
+new Vue({
+	el: '#app6',
+	data: {selected: ''}
+})
+
+new Vue({
+	el: '#app7',
+	data: {selected: []}    // 绑定到一个数组
+})
+
+new Vue({
+	el: '#app8',
+	data: {
+		selected: 'A',
+		options: [
+			{text: 'One', value: 'A'},
+			{text: 'Two', value: 'B'},
+			{text: 'Three', value: 'C'}
+		]
+	}
+})
+
+new Vue({
+	el: '#app9',
+	data: {toggle: false}
+})
+
+
+
+
+
+</script>	
+</body>
+</html>

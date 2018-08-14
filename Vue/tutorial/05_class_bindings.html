@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="./js/vue.js"></script>
+	<title>绑定 HTML Class</title>
+	<style>
+		div {display: inline-block;}
+		.static {width: 200px; height: 200px; font-size: 40px;}
+		.active {background: yellow}
+		.text-danger {color: red}
+		.foo {color: red}
+		.bar {font-size: 40px}
+	</style>
+</head>
+<body>
+
+<!-- 1.对象语法 -->
+
+<!-- active 这个 class 存在与否将取决于数据属性 isActive 的真假，下同 -->
+<div id='app1' class="static" v-bind:class="{active: isActive, 'text-danger': hasError}">No smoking!</div>
+
+<!-- 绑定的数据对象不必内联定义在模板里 -->
+<!-- 可绑定在 data 选项中 -->
+<div id='app2' class="static" v-bind:class="classObject">No smoking!</div>
+<!-- 也可绑定在 computed 选项中，但必须要返回对象 -->
+<div id='app3' class="static" v-bind:class="classObject">No smoking!</div>
+
+<br><br>
+
+<!-- 2.数组语法 -->
+
+<div id='app4' class="static" v-bind:class="[activeClass, errorClass]">No smoking!</div>
+
+<!-- 根据条件切换 class 方式一：用三元表达式 -->
+<div id='app5' class="static" v-bind:class="[isActive ? activeClass: '', errorClass]">No smoking!</div>
+
+<!-- 根据条件切换 class 方式一：用对象语法 -->
+<div id='app6' class="static" v-bind:class="[{active: isActive}, errorClass]">No smoking!</div>
+
+<br><br>
+
+<!-- 3.用在组件上 -->
+
+<div id="app7"><my-component class='bar'></my-component></div>
+
+<!-- 带数据绑定 class 也同样适用 -->
+<div id="app8"><your-component v-bind:class="{active: isActive}"></your-component></div>
+
+
+<script>
+
+new Vue({
+	el: '#app1',
+	data: {isActive: true, hasError: false}
+})
+
+new Vue({
+	el: '#app2',
+	data: {
+		classObject: {active: true, 'text-danger': true}
+	}
+})
+
+new Vue({
+	el: '#app3',
+	data: {isActive: true, error: null},
+	computed: {
+		classObject: function() {
+			return {
+				active: this.isActive && !this.error,
+				'text-danger': this.error && this.error.type === 'fatal'
+			}
+		}
+	}
+})
+
+new Vue({
+	el: "#app4",
+	data: {
+		activeClass: 'active',
+		errorClass: 'text-danger'
+	}
+})
+
+new Vue({
+	el: '#app5',
+	data: {
+		isActive: false,    //  加在这儿可以嘛
+		activeClass: 'active',
+		errorClass: 'text-danger'
+	}
+})
+
+new Vue({
+	el: '#app6',
+	data: {
+		isActive: true,
+		errorClass: 'text-danger'
+	}
+})
+
+Vue.component('my-component', {
+	template: "<p class='foo'>Welcome</p>"
+})
+
+new Vue({
+	el: '#app7'	
+})
+
+Vue.component('your-component', {
+	template: "<p class='foo'>Welcome</p>"
+})
+
+new Vue({
+	el: '#app8',
+	data: {
+		isActive: true
+	}
+})
+
+
+
+
+
+
+</script>	
+</body>
+</html>

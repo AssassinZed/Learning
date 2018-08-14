@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="./js/vue.js"></script>
+	<title>组件</title>
+</head>
+<body>
+	
+<!-- 一、使用组件 -->
+
+<!-- 1.全局注册 -->
+
+<div id="app1">
+	<my-component></my-component>	
+</div>
+
+<!-- 2.局部注册 -->
+
+<div id="app2">
+	<ur-component></ur-component>
+</div>
+
+<!-- 3.DOM 模板解析注意事项 -->
+
+<table id="app3">
+	<tr is="my-row"></tr>
+</table>
+
+<!-- 4.构造 Vue 实例时传入的各种选项大多数都可以在组件里使用。但：data 必须是函数 -->
+
+<div id="app4">
+	<my-component></my-component>
+</div>
+
+<!-- 5.组件组合 -->
+
+<!-- 二、Prop -->
+
+<!-- 1.使用 Prop 传递数据 -->
+
+<div id="app5">
+	<child message="Welcome to league of legends"></child>
+</div>
+
+<!-- 2.camelCase vs kebab-case -->
+
+<!-- HTML特性是不区分大小写的。所以，但使用的不是字符串模板时，camelCase 的 prop 需要转换为相对应的 kebab-case -->
+<div id="app6">
+	<child my-message="Welcome to league of legends"></child>
+</div>
+
+<!-- 3.动态 Prop -->
+
+<!-- 4.字面量语法 VS 动态语法 -->
+
+
+
+
+
+<script>
+
+// 一、使用组件
+
+// 1.全局注册的方式
+// 注册
+Vue.component('my-component', {
+	template: '<div>A custom component!</div>'
+})
+
+// 创建根实例
+new Vue({
+	el: '#app1'
+})
+
+// 2.局部注册的方式
+var Child = {template: '<div>Welcome to the league of Draven!</div>'};
+
+new Vue({
+	el: '#app2',
+	components: {'ur-component': Child}
+})
+
+// 3.DOM 模板注意事项
+Vue.component('my-row', {
+	template: '<tr><th>Name</th><th>Score</th></tr>'
+})
+
+new Vue({
+	el: '#app3'
+})
+
+// 4.构造 Vue 实例时传入的各种选项大多数都可以在组件里使用。但：data 必须是函数，且函数返回一个对象
+
+Vue.component('my-component', {
+	template: '<span>{{message}}</span>',
+	data: function() {return {message: 'Welcome, Mr.Chang'}}
+})
+
+new Vue({
+	el: '#app4'
+})
+
+// 二、Prop
+
+// 1.使用 Prop 传递数据
+
+Vue.component('child', {
+	props: ['message'],
+	template: '<span>{{message}}</span>'
+})
+
+new Vue({
+	el: '#app5'
+})
+
+// 2.camelCase vs kebab-case
+
+Vue.component('child', {
+	props: ['myMessage'],
+	template: '<span>{{myMessage}}</span>'
+})
+
+new Vue({
+	el: '#app6'
+})
+
+
+
+
+
+</script>
+</body>
+</html>

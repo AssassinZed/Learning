@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="./js/vue.js"></script>
+	<title>绑定内联样式</title>
+</head>
+<body>
+
+<!-- 1.对象语法 -->
+
+<!-- 注意是 fontSize，而不是 font-size -->
+<div id="app1" v-bind:style="{color: activeColor, fontSize: fontSize + 'px'}">Welcome</div>
+
+<!-- 属性可以是一个数组，常用于提供多个带前缀的值 -->
+<div id="app2" :style="{display: ['-webkit-box', '-ms-flexbox', 'flex']}">Welcome</div>
+<!-- 只会渲染数组中最后一个被浏览器支持的值，本例中，若浏览器支持 flex，则仅渲染 display: flex -->
+
+<!-- 直接绑定到一个样式对象，更推荐 -->
+<div id="app3" v-bind:style="styleObject">Welcome</div>
+
+<!-- 结合对象的计算属性使用：略 -->
+
+<!-- 2.数组语法 -->
+
+<div id="app4" v-bind:style="[baseStyles, overridingStyles]">Welcome</div>
+
+
+<script>
+
+new Vue({
+	el: '#app1',
+	data: {
+		activeColor: 'red',
+		fontSize: 30
+	}
+})
+
+new Vue({
+	el: '#app2'
+})
+
+new Vue({
+	el: '#app3',
+	data: {
+		styleObject: {color: 'blue', fontSize: '30px'}
+	}
+})
+
+new Vue({
+	el: '#app4',
+	data: {
+		baseStyles: {width: '200px', height: '200px'},
+		overridingStyles: {background: 'yellow', fontSize: '30px'}
+	}
+})
+
+
+
+
+
+
+
+</script>	
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="./js/vue.js"></script>
+	<title>计算属性和侦听器</title>
+</head>
+<body>
+
+<!-- 一、计算属性 -->
+
+<!-- 1.基础例子 -->
+<div id="app1">
+	<p>Original message: {{message}}</p>
+	<p>Computed revesed message: {{reversedMessage}}</p>
+</div>
+
+<!-- 2.计算属性缓存 VS 方法 -->
+
+<!-- 3.计算属性 VS 侦听属性 -->
+
+<!-- 4.计算属性的 setter -->
+
+<!-- 二、侦听器 -->
+
+<script>
+	
+new Vue({
+	el: '#app1',
+	data: {message: 'Welcome'},
+	computed: {reversedMessage: function() {return this.message.split('').reverse().join('')}}
+})
+
+
+
+
+
+</script>
+</body>
+</html>
