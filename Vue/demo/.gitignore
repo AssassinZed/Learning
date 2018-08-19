@@ -6,10 +6,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # my diy
-build/
-config/
-src/
-static/
 
 
 # Editor directories and files
